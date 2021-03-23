@@ -29,11 +29,12 @@ document.addEventListener('DOMContentLoaded', function (event) {
     }
     if(turnCounter === 9) {
       alert("It is a tie - Reset the game to play again?");
+      reset();
     }
   }
 
   const checkWhoWins = (arrayOfLetters, player) => {
-    for(let i = 0; i < winningCombinations.length; i++) {
+    for(var i = 0; i < winningCombinations.length; i++) {
       let sameLetters = 0;
       for(var j = 0; j < winningCombinations[i].length; j++) {
         if(arrayOfLetters.indexOf(winningCombinations[i][j]) !== -1) {
@@ -41,11 +42,21 @@ document.addEventListener('DOMContentLoaded', function (event) {
         }
         if(sameLetters === 3) {
           alert("Player: " + player + "wins!");
+          reset();
         }
       }
     }
-
   }
 
+  function reset() {
+    for (let i = 0; i < boxes.length; i++) {
+      boxes[i].value = '';
+      boxes[i].disabled = false;
+      turnCounter = 0;
+      arrayOfX = [];
+      arrayOfO = [];
+    }
+  }
 
 })
+
