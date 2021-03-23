@@ -26,10 +26,12 @@ document.addEventListener('DOMContentLoaded', function (event) {
       event.target.disabled = true;
       turnCounter++;
       checkWhoWins(arrayOfO, "O");
-
     }
-
+    if(turnCounter === 9) {
+      alert("It is a tie - Reset the game to play again?");
+    }
   }
+
   const checkWhoWins = (arrayOfLetters, player) => {
     for(let i = 0; i < winningCombinations.length; i++) {
       let sameLetters = 0;
@@ -37,12 +39,12 @@ document.addEventListener('DOMContentLoaded', function (event) {
         if(arrayOfLetters.indexOf(winningCombinations[i][j]) !== -1) {
           sameLetters++;
         }
-
         if(sameLetters === 3) {
           alert("Player: " + player + "wins!");
         }
       }
     }
+
   }
 
 
