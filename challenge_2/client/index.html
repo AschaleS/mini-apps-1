@@ -6,13 +6,12 @@
 
 <body>
   <h3>CSV REPORT GENERATOR</h3>
-  <form>
-    <textarea rows="4" cols="50" name="text" form="usrform">Enter your text here...</textarea><br>
-    <button id="button" onclick="sendJSON()">Submit</button>
+  <form id="form" method="POST" action="http://localhost:3000/">
+    <textarea rows="4" cols="50" name="text" form="form" placeholder="Enter your text here..."></textarea><br>
+    <input type=submit>
   </form>
 
   <script src="app.js"></script>
-  <script src="./server.js"></script>
 </body>
 
 </html>
