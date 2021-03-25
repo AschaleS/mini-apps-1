@@ -1,0 +1,12 @@
+html
+    head
+        title CSV REPORT GENERATOR
+    body
+        h3 CSV REPORT GENERATOR
+        form(action="http://localhost:3000/", method='POST', id="form")
+            textarea(rows="4" cols="50" name="text" form="form" placeholder="Enter your text here...")
+            br
+            input(type='submit', value='Submit')
+
+            p !{JSON.stringify(data)}
+
