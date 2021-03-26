@@ -11,5 +11,11 @@ html
             br
             input(type='submit', value='Submit')
 
+
             pre !{data}
+
+            h5 Click the button to download the CSV file
+            //- button(onclick="download_csv_file()"> Download CSV)
+            input(type='submit', value='Download CSV', onclick='download_csv_file()')
+
 
