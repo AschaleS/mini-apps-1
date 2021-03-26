@@ -14,8 +14,9 @@ html
 
             pre !{data}
 
-            h5 Click the button to download the CSV file
-            //- button(onclick="download_csv_file()"> Download CSV)
-            input(type='submit', value='Download CSV', onclick='download_csv_file()')
+            h5 Click the Download link below to download the CSV file
+            a(href="data:text/csv;charset=utf-8,'+escape(csv)+'" download="Sales Report.csv") Download
+
+
 
 
