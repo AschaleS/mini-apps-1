@@ -19,7 +19,7 @@ app.set('view engine', 'pug');
 
 app.post('/', (req, res) => {
   res.statusCode = 200
-  let csvDataObject = convertJsontoCsv(JSON.parse(req.body.text));
+  var csvDataObject = convertJsontoCsv(JSON.parse(req.body.text));
   var csvDataText = csvDataObject.header + '\n' + csvDataObject.value;
   res.render("index_2", {data: csvDataText});
   res.end();
@@ -34,6 +34,7 @@ function convertJsontoCsv(obj) {
                 	value = value.slice(0, -2);
                 	value += "<br>";
                 }
+
                 var output = convertJsontoCsv(obj[key]);
                 value += output.value;
                 header + output.header;

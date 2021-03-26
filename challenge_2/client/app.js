@@ -1,20 +1,18 @@
 
 //var xhttp = new XMLHttpRequest();
 
-const url = 'http://localhost:3000';
+const url = 'http://localhost:3000/';
 
 
 $(document).ready(function () {
-  //$("form").submit(function (event) {
-    S(.submit).click(function(event) {
-      event.preventDefault();
+  $("form").submit(function (event) {
     var formData = {
       text: $("#data").val();
     };
 
     $.ajax({
       type: "POST",
-      url: "http://localhost:3000/",
+      url: url,
       data: formData,
       dataType: "application/JSON",
       encode: true,
@@ -22,8 +20,8 @@ $(document).ready(function () {
       console.log(data);
     });
 
-    // event.preventDefault();
+    $('form').on('submit', function(e) {
+      e.preventDefault();
   });
 });
-
-
+});
