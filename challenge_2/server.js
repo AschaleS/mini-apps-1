@@ -19,13 +19,35 @@ app.set('view engine', 'pug');
 
 app.post('/', (req, res) => {
   res.statusCode = 200
-  console.log("this is the incoming datatype", req.body);
-  //res.render('index_new', {data: req.body});
-  res.render("index_2", {data: req.body});
+  let csvDataObject = convertJsontoCsv(JSON.parse(req.body.text));
+  var csvDataText = csvDataObject.header + '\n' + csvDataObject.value;
+  res.render("index_2", {data: csvDataText});
   res.end();
-  // next();
 })
 
-
+function convertJsontoCsv(obj) {
+  var value = "", header = "";
+          for (key in obj) {
+            if (obj.hasOwnProperty(key)) {
+              if (isObject(obj[key])) {
+                if(!Array.isArray(obj)){
+                	value = value.slice(0, -2);
+                	value += "<br>";
+                }
+                var output = convertJsontoCsv(obj[key]);
+                value += output.value;
+                header + output.header;
+              } else {
+                value += obj[key] + ', ';
+                header += key + ', ';
+              }
+            }
+          }
+  header = header.slice(0, -2);
+  return {header, value};
+}
+function isObject(obj) {
+  return (typeof obj === 'object');
+}
 
 module.exports = app;
