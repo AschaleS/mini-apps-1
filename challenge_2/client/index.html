@@ -7,7 +7,9 @@
 <body>
   <h3>CSV REPORT GENERATOR</h3>
   <form id="form" method="POST" action="http://localhost:3000/">
-    <textarea rows="4" cols="50" name="text" form="form" placeholder="Enter your text here..."></textarea><br>
+    <label for="files"> Choose a file</label><br>
+    <input type="file" name="datafile" size="40"><br>
+    <!-- <textarea rows="4" cols="50" name="text" form="form" placeholder="Enter your text here..."></textarea><br> -->
     <input type=submit>
   </form>
 
