@@ -32,7 +32,7 @@ function convertJsontoCsv(obj) {
               if (isObject(obj[key])) {
                 if(!Array.isArray(obj)){
                 	value = value.slice(0, -2);
-                	value += "<br>";
+                	value += '\n' ;
                 }
 
                 var output = convertJsontoCsv(obj[key]);

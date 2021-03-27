@@ -19,7 +19,7 @@ $(document).ready(function () {
     }).done(function (data) {
       console.log(data);
     });
-
+    console.log('This is from the AJAX Request', formData)
     $('form').on('submit', function(e) {
       e.preventDefault();
   });
