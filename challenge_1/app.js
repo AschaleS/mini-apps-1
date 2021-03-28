@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
       checkWhoWins(arrayOfO, "O");
     }
     if(turnCounter === 9) {
-      alert("It is a tie - Reset the game to play again?");
+      alert("It is a tie - Do you want to play again?");
       reset();
     }
   }
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
           sameLetters++;
         }
         if(sameLetters === 3) {
-          alert("Player: " + player + "wins!");
+          alert("Player: " + player + " wins!");
           reset();
         }
       }
