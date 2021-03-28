@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
           sameLetters++;
         }
         if(sameLetters === 3) {
-          alert("Player: " + player + " wins!");
+          alert("Player: " + player + " wins the game!");
           reset();
         }
       }
