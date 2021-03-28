@@ -3,19 +3,20 @@ html
         title CSV REPORT GENERATOR
     body
         h3 CSV REPORT GENERATOR
+        //- form(action="http://localhost:3000/", method='POST', id="form", enctype="multipart/form-data")
         form(action="http://localhost:3000/", method='POST', id="form")
             textarea(rows="4" cols="50" name="text" form="form" placeholder="Enter your text here...")
             //- label(for="files" Upload your file here )
             //-  br
-            //- input(type="file" name="datafile" size="40")
+            //- input(type="file" name="datafile")
             br
-            input(type='submit', value='Submit')
+            input(type='submit' value='submit')
 
 
             pre !{data}
 
-            h5 Click the Download link below to download the CSV file
-            a(href="data:text/csv;charset=utf-8,"+ locals.data download="Sales Report.csv") Download
+            h5 Click the link below to download the CSV file
+            a(href="data:text/csv;charset=utf-8,"+ locals.data download="Csv Files.csv") Download File
 
 
 

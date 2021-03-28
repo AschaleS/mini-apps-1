@@ -16,6 +16,7 @@ $(document).ready(function () {
       data: formData,
       dataType: "application/JSON",
       encode: true,
+      enctype: 'multipart/form-data',
     }).done(function (data) {
       console.log(data);
     });
