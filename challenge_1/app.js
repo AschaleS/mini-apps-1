@@ -1,4 +1,6 @@
 
+console.log('This is the start of the game')
+
 
 document.addEventListener('DOMContentLoaded', function (event) {
   let boxes = document.getElementsByClassName('box');
