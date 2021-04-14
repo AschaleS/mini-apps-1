@@ -25,11 +25,11 @@ class App extends React.Component {
     });
   }
 
-  finalStep() {
-    this.setState({
-      step: this.state.step;
-    }.bind(this));
-  }
+  // finalStep() {
+  //   render(){
+  //     return (<Checkout />)
+  //   }
+  // }
 
   handleChange(e) {
     this.setState({
@@ -37,17 +37,17 @@ class App extends React.Component {
     });
   }
 
-  // handlePurchase() {
-  //   this.setState({
-  //     step: this.state.step +1
-  //   });
-  // }
+  handlePurchase() {
+    this.setState({
+      step: this.state.step - 4
+    });
+  }
 
   render() {
     const { step } = this.state;
     const { name, email, password, addressLine1, addressLine2, city, state, zip_code, phone_number, cc_number, exp_date, cvv, billing_zip } = this.state;
     const values = { name, email, password, addressLine1, addressLine2, city, state, zip_code, phone_number, cc_number, exp_date, cvv, billing_zip };
-    switch (step) {
+    switch (this.state.step) {
       case 1:
         return (<Checkout
           nextStep={this.nextStep.bind(this)}
@@ -74,7 +74,7 @@ class App extends React.Component {
 
       case 5:
         return (<Confirmation
-          nextStep={this.nextStep.bind(this)}
+          finalStep={this.handlePurchase.bind(this)}
           handleChange={this.handleChange}
           values={values} />)
 
@@ -306,28 +306,29 @@ class Confirmation extends React.Component {
 
   next() {
     this.props.finalStep();
+      // return (<Checkout />)
   }
 
 
   render() {
-    const { values: { name, email, password, addressLine1, addressLine2, city, state, zip_code, phone_number, cc_number, exp_date, cvv, billing_zip } } = this.props;
+    const { values: {name, email, password, addressLine1, addressLine2, city, state, zip_code, phone_number, cc_number, exp_date, cvv, billing_zip } } = this.props;
     return (
       <div>
-        <h3> Confirm Your Details</h3>
+        <h3> Please Confirm Your Details Below Before Purchase </h3>
         <div>
-          <li>Name: {name}</li>
-          <li>Email: {email}</li>
+          Name: {name} <br />
+          Email: {email} <br />
           {/* <li>Password: {password}</li> */}
-          <li>Address Line 1: {addressLine1}</li>
-          <li>Address Line 2: {addressLine2}</li>
-          <li>City: {city}</li>
-          <li>State: {state}</li>
-          <li>Zip Code: {zip_code}</li>
-          <li>Phone Number: {phone_number}</li>
-          <li>Credit Card: {cc_number}</li>
-          <li>Expiration Date: {exp_date}</li>
-          <li>CVV: {cvv}</li>
-          <li>Billing Zip Code: {billing_zip}</li> <br />
+          Address Line 1: {addressLine1} <br />
+          Address Line 2: {addressLine2} <br />
+          City: {city} <br />
+          State: {state} <br />
+          Zip Code: {zip_code} <br />
+          Phone Number: {phone_number} <br />
+          Credit Card: {cc_number} <br />
+          Expiration Date: {exp_date} <br />
+          CVV: {cvv} <br />
+          Billing Zip Code: {billing_zip} <br />
           <button className="btn-place-order" onClick={this.next.bind(this)}>Purchase</button>
         </div>
 
