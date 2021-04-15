@@ -30,7 +30,7 @@ Shopping.createIndexes();
 
 let save = (shopping, callback) => {
     const query = { "order_id": shopping.order_id };
-    const update = { $set: { "email": shopping.email, "name": shopping.name, "password": shopping.password } };
+    const update = { $set: {"name": shopping.name, "email": shopping.email, "password": shopping.password } };
     const options = { upsert: true };
     Shopping.updateOne(query, update, options, callback);
 };
