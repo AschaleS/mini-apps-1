@@ -1,4 +1,5 @@
 
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -23,13 +24,8 @@ class App extends React.Component {
     this.setState({
       step: this.state.step + 1
     });
+    // this.handleCreateAccount().bind(this);
   }
-
-  // finalStep() {
-  //   render(){
-  //     return (<Checkout />)
-  //   }
-  // }
 
   handleChange(e) {
     this.setState({
@@ -42,14 +38,62 @@ class App extends React.Component {
       step: this.state.step - 4
     });
   }
+handleAccount(e){
+  fetch('http://localhost:4000/account', {
+    method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: this.state.name,
+        email: this.state.email,
+        password: this.state.password
+      })
+    })
+    .then((response) => {
+      return response.json();
+    });
+}
 
+handleShipping(e){
+  fetch('http://localhost:4000/shipping', {
+    method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        addressLine1: this.state.addressLine1,
+        addressLine2: this.state.addressLine2,
+        city: this.state.city,
+        state: this.state.state,
+        zip_code: this.state.zip_code,
+        phone_number: this.state.phone_number
+      })
+    })
+    .then((response) => {
+      return response.json();
+    });
+}
+
+handleBilling(e){
+  fetch('http://localhost:4000/billing', {
+    method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        cc_number: this.state.cc_number,
+        exp_date: this.state.exp_date,
+        cvv: this.state.cvv,
+        billing_zip: this.state.billing_zip
+      })
+    })
+    .then((response) => {
+      return response.json();
+    });
+}
   render() {
     const { step } = this.state;
     const { name, email, password, addressLine1, addressLine2, city, state, zip_code, phone_number, cc_number, exp_date, cvv, billing_zip } = this.state;
     const values = { name, email, password, addressLine1, addressLine2, city, state, zip_code, phone_number, cc_number, exp_date, cvv, billing_zip };
     switch (this.state.step) {
       case 1:
-        return (<Checkout
+        return (
+        <Checkout
           nextStep={this.nextStep.bind(this)}
           handleChange={this.handleChange}
           values={values} />)
@@ -57,19 +101,22 @@ class App extends React.Component {
       case 2:
         return (<Form1
           nextStep={this.nextStep.bind(this)}
-          handleChange={this.handleChange}
+          handleChange={this.handleChange.bind(this)}
+          handleAccount={this.handleAccount.bind(this)}
           values={values} />)
 
       case 3:
         return (<Form2
           nextStep={this.nextStep.bind(this)}
-          handleChange={this.handleChange}
+          handleChange={this.handleChange.bind(this)}
+          handleShipping={this.handleShipping.bind(this)}
           values={values} />)
 
       case 4:
         return (<Form3
           nextStep={this.nextStep.bind(this)}
-          handleChange={this.handleChange}
+          handleChange={this.handleChange.bind(this)}
+          handleBilling={this.handleBilling.bind(this)}
           values={values} />)
 
       case 5:
@@ -127,14 +174,15 @@ class Form1 extends React.Component {
   }
 
   next() {
-    this.props.nextStep();
+    this.props.nextStep(),
+    this.props.handleAccount();
   }
 
 
   render() {
     return (
       <div>
-        <h3>Create Account</h3>
+        <h3>Please Create Account</h3>
         <form>
           Name:
             <input name="name" value={this.state.name} onChange={this.onNameChange.bind(this)} /> <br />
@@ -198,7 +246,8 @@ class Form2 extends React.Component {
     })
   }
   next() {
-    this.props.nextStep();
+    this.props.nextStep(),
+    this.props.handleShipping();
   }
 
 
@@ -267,7 +316,8 @@ class Form3 extends React.Component {
     })
   }
   next() {
-    this.props.nextStep();
+    this.props.nextStep(),
+    this.props.handleBilling();
   }
 
   render() {
@@ -306,7 +356,6 @@ class Confirmation extends React.Component {
 
   next() {
     this.props.finalStep();
-      // return (<Checkout />)
   }
 
 
@@ -316,7 +365,7 @@ class Confirmation extends React.Component {
       <div>
         <h3> Please Confirm Your Details Below Before Purchase </h3>
         <div>
-          Name: {name} <br />
+          Name: { name } <br />
           Email: {email} <br />
           {/* <li>Password: {password}</li> */}
           Address Line 1: {addressLine1} <br />
