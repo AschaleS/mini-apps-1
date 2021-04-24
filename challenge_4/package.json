@@ -1,0 +1,32 @@
+{
+  "name": "challenge_4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "react-dev": "webpack -d --watch --mode development -w",
+    "server-dev": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/plugin-transform-runtime": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "@babel/preset-react": "^7.12.10",
+    "babel-loader": "^8.2.2",
+    "nodemon": "^2.0.7",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^4.3.0"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "jquery": "^3.5.1",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
+    "underscore": "^1.12.0"
+  }
+}
