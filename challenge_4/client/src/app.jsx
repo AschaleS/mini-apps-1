@@ -13,24 +13,75 @@ export class App extends React.Component {
   }
   resetBoard() {
     this.setState({
-      moves: []
+      moves: [],
+      turn: 'red'
     })
   }
 
-  getMoves(x, z) {
+  getMoves(x, y) {
     const list = this.state.moves.filter((element) => {
-      return (element.x === x && element.z === z);
+      const result = (element.x === x && element.y === y);
+      return result;
     });
     return list[0];
   }
 
-   addMove(x, z) {
+   addMove(x, y) {
     const { turn } = this.state;
     const nextTurn = turn === 'red' ? "yellow": "red";
-    this.setState({ moves: this.state.moves.concat({ x, z, player: turn }), turn: nextTurn});
+    this.setState({ moves: this.state.moves.concat({ x, y, player: turn }), turn: nextTurn}
+    , this.checkWhoWins(x, y, turn));
   }
 
 
+ checkWhoWins(x, y, player){
+    let xInRow = 1;
+    for(let column = x + 1; column < x + 4 && column < 7; column +=1){
+      const checkMove = this.getMoves(column, y);
+      if(checkMove && checkMove.player === player) {
+        xInRow +=1;
+      } else {
+        break;
+      }
+    }
+    for(let column = x - 1; column > x - 4; column -=1){
+      const checkMove = this.getMoves(column, y);
+      if(checkMove && checkMove.player === player) {
+        xInRow +=1;
+      } else {
+        break;
+      }
+    }
+
+    if(xInRow === 4){
+      this.setState({winner: player})
+      alert("Player: " + player + " wins the game!");
+    }
+
+    xInRow = 1;
+    for(let row = y + 1; row < y + 4; row +=1){
+      const checkMove = this.getMoves(x, row);
+      if(checkMove && checkMove.player === player) {
+        xInRow +=1;
+      } else {
+        break;
+      }
+    }
+    for(let row = y - 1; row > y - 4; row -=1){
+      const checkMove = this.getMoves(x, row);
+      if(checkMove && checkMove.player === player) {
+        xInRow +=1;
+      } else {
+        break;
+      }
+    }
+
+    if(xInRow === 4){
+      this.setState({winner: player})
+      alert("Player: " + player + " wins the game!");
+    }
+
+  }
   renderBoard() {
     const { rows, cols } = this.state;
     const rowViews = [];
