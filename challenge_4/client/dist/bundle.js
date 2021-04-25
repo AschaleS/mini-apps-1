@@ -156,10 +156,17 @@ var App = /*#__PURE__*/function (_React$Component) {
             style: {
               width: 50,
               height: 50,
-              backgroundColor: "white",
-              border: "1px solid black"
+              backgroundColor: "#0062ff",
+              display: "flex"
             }
-          }));
+          }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
+            style: {
+              borderRadius: "50%",
+              backgroundColor: "white",
+              flex: 1,
+              display: "flex"
+            }
+          })));
         }
 
         rowViews.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {

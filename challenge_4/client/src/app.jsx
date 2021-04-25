@@ -17,7 +17,9 @@ export class App extends React.Component {
       const colViews = [];
       for (let col = 0; col < this.state.cols; col++) {
         colViews.push(
-          <div style={{ width: 50, height: 50, backgroundColor: "white", border: "1px solid black" }}></div>
+          <div style={{ width: 50, height: 50, backgroundColor: "#0062ff", display: "flex"}}>
+            <div style={{ borderRadius: "50%", backgroundColor: "white", flex: 1, display: "flex" }}></div>
+          </div>
         );
       }
       rowViews.push(
