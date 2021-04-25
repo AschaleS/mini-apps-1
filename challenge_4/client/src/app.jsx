@@ -8,7 +8,7 @@ export class App extends React.Component {
       rows: 6,
       cols: 7,
       moves: [],
-      turn: '#f44336'
+      turn: 'red'
     };
   }
   resetBoard() {
@@ -24,6 +24,12 @@ export class App extends React.Component {
     return list[0];
   }
 
+   addMove(x, z) {
+    const { turn } = this.state;
+    const nextTurn = turn === 'red' ? "yellow": "red";
+    this.setState({ moves: this.state.moves.concat({ x, z, player: turn }), turn: nextTurn});
+  }
+
 
   renderBoard() {
     const { rows, cols } = this.state;
@@ -33,7 +39,7 @@ export class App extends React.Component {
       for (let col = 0; col < this.state.cols; col++) {
         const move = this.getMoves(col, row);
         colViews.push(
-          <div  style={{ width: 50, height: 50, backgroundColor: "#0062ff", display: "flex"}}>
+          <div onClick={() => { this.addMove(col, row) }}  style={{ width: 50, height: 50, backgroundColor: "#0062ff", display: "flex"}}>
             <div style={{ borderRadius: "50%", backgroundColor: "white", flex: 1, display: "flex" }}>
             {move ? <div style={{ backgroundColor: move.player, flex: 1, borderRadius: "50%" }} /> : undefined}
             </div>
@@ -52,9 +58,9 @@ export class App extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div style={{ margin: "auto", width: "25%", padding: "20px"}}>
         <h2> Connect Four</h2>
-        <div>
+        <div style={{ padding: 5, display: "flex"}}>
           {this.renderBoard()}
         </div>
         <button onClick={() => { this.resetBoard() }} >Reset</button>
