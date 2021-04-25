@@ -6,9 +6,24 @@ export class App extends React.Component {
     super(props);
     this.state = {
       rows: 6,
-      cols: 7
+      cols: 7,
+      moves: [],
+      turn: '#f44336'
     };
   }
+  resetBoard() {
+    this.setState({
+      moves: []
+    })
+  }
+
+  getMoves(x, z) {
+    const list = this.state.moves.filter((element) => {
+      return (element.x === x && element.z === z);
+    });
+    return list[0];
+  }
+
 
   renderBoard() {
     const { rows, cols } = this.state;
@@ -16,9 +31,12 @@ export class App extends React.Component {
     for (let row = 0; row < this.state.rows; row++) {
       const colViews = [];
       for (let col = 0; col < this.state.cols; col++) {
+        const move = this.getMoves(col, row);
         colViews.push(
-          <div style={{ width: 50, height: 50, backgroundColor: "#0062ff", display: "flex"}}>
-            <div style={{ borderRadius: "50%", backgroundColor: "white", flex: 1, display: "flex" }}></div>
+          <div  style={{ width: 50, height: 50, backgroundColor: "#0062ff", display: "flex"}}>
+            <div style={{ borderRadius: "50%", backgroundColor: "white", flex: 1, display: "flex" }}>
+            {move ? <div style={{ backgroundColor: move.player, flex: 1, borderRadius: "50%" }} /> : undefined}
+            </div>
           </div>
         );
       }
@@ -39,7 +57,7 @@ export class App extends React.Component {
         <div>
           {this.renderBoard()}
         </div>
-        <button>Reset</button>
+        <button onClick={() => { this.resetBoard() }} >Reset</button>
       </div>
 
     )
