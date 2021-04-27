@@ -81,6 +81,57 @@ export class App extends React.Component {
       alert("Player: " + player + " wins the game!");
     }
 
+    xInRow = 1;
+    for(let row = y+1, column = x+1; row < 6 && column < 7; row++, column++) {
+      const checkMove = this.getMoves(column, row);
+      // if(checkMove) {
+      //   console.log(column, row, player, checkMove.player);
+      // } else {
+      //   console.log(column, row, checkMove);
+      // }
+      if(checkMove && checkMove.player === player) {
+        xInRow += 1;
+      } else {
+        break;
+      }
+    }
+
+    for(let row = y-1, column = x-1; row >= 0 && column >= 0; row--, column--) {
+      const checkMove = this.getMoves(column, row);
+      if(checkMove && checkMove.player === player) {
+        xInRow += 1;
+      } else {
+        break;
+      }
+    }
+    if(xInRow === 4){
+      this.setState({winner: player})
+      alert("Player: " + player + " wins the game!");
+    }
+
+    xInRow = 1;
+    for(let row = y+1, column = x-1; row < 6 && column >= 0; row++, column--) {
+      const checkMove = this.getMoves(column, row);
+      if(checkMove && checkMove.player === player) {
+        xInRow += 1;
+      } else {
+        break;
+      }
+    }
+
+    for(let row = y-1, column = x+1; row >= 0 && column < 7; row--, column++) {
+      const checkMove = this.getMoves(column, row);
+      if(checkMove && checkMove.player === player) {
+        xInRow += 1;
+      } else {
+        break;
+      }
+    }
+
+    if(xInRow === 4){
+      this.setState({winner: player})
+      alert("Player: " + player + " wins the game!");
+    }
   }
   renderBoard() {
     const { rows, cols } = this.state;
