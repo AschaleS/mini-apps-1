@@ -4,8 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
+    "test": "live-server --open=./SpecRunner.html --port=8081",
+    "start": "npx babel . --out-dir compiled --watch --presets=@babel/preset-react --ignore=node_modules,compiled --source-maps inline",
     "react-dev": "webpack -d --watch --mode development -w",
     "server-dev": "nodemon server.js"
   },
@@ -23,8 +23,11 @@
     "webpack-cli": "^4.3.0"
   },
   "dependencies": {
+    "babel-preset-env": "^1.7.0",
+    "chai": "^4.3.4",
     "express": "^4.17.1",
     "jquery": "^3.5.1",
+    "mocha": "^8.3.2",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "underscore": "^1.12.0"

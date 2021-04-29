@@ -90,7 +90,7 @@
 /*!****************************!*\
   !*** ./client/src/app.jsx ***!
   \****************************/
-/*! exports provided: App */
+/*! exports provided: App, default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -135,24 +135,197 @@ var App = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.state = {
       rows: 6,
-      cols: 7
+      cols: 7,
+      moves: [],
+      turn: 'red'
     };
     return _this;
   }
 
   _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default()(App, [{
+    key: "resetBoard",
+    value: function resetBoard() {
+      this.setState({
+        moves: [],
+        turn: 'red'
+      });
+    }
+  }, {
+    key: "getMoves",
+    value: function getMoves(x, y) {
+      var list = this.state.moves.filter(function (element) {
+        var result = element.x === x && element.y === y;
+        return result;
+      });
+      return list[0];
+    }
+  }, {
+    key: "addMove",
+    value: function addMove(x, y) {
+      var turn = this.state.turn;
+      var nextTurn = turn === 'red' ? "yellow" : "red";
+      this.setState({
+        moves: this.state.moves.concat({
+          x: x,
+          y: y,
+          player: turn
+        }),
+        turn: nextTurn
+      }, function () {
+        this.checkWhoWins(x, y, turn);
+      }.bind(this));
+    }
+  }, {
+    key: "checkWhoWins",
+    value: function checkWhoWins(x, y, player) {
+      var xInRow = 1;
+
+      for (var column = x + 1; column < x + 4 && column < 7; column += 1) {
+        var checkMove = this.getMoves(column, y);
+
+        if (checkMove && checkMove.player === player) {
+          xInRow += 1;
+        } else {
+          break;
+        }
+      }
+
+      for (var _column = x - 1; _column > x - 4; _column -= 1) {
+        var _checkMove = this.getMoves(_column, y);
+
+        if (_checkMove && _checkMove.player === player) {
+          xInRow += 1;
+        } else {
+          break;
+        }
+      }
+
+      if (xInRow === 4) {
+        this.setState({
+          winner: player
+        });
+        alert("Player: " + player + " wins the game!");
+      }
+
+      xInRow = 1;
+
+      for (var row = y + 1; row < y + 4; row += 1) {
+        var _checkMove2 = this.getMoves(x, row);
+
+        if (_checkMove2 && _checkMove2.player === player) {
+          xInRow += 1;
+        } else {
+          break;
+        }
+      }
+
+      for (var _row = y - 1; _row > y - 4; _row -= 1) {
+        var _checkMove3 = this.getMoves(x, _row);
+
+        if (_checkMove3 && _checkMove3.player === player) {
+          xInRow += 1;
+        } else {
+          break;
+        }
+      }
+
+      if (xInRow === 4) {
+        this.setState({
+          winner: player
+        });
+        alert("Player: " + player + " wins the game!");
+      }
+
+      xInRow = 1;
+
+      for (var _row2 = y + 1, _column2 = x + 1; _row2 < 6 && _column2 < 7; _row2++, _column2++) {
+        var _checkMove4 = this.getMoves(_column2, _row2); // if(checkMove) {
+        //   console.log(column, row, player, checkMove.player);
+        // } else {
+        //   console.log(column, row, checkMove);
+        // }
+
+
+        if (_checkMove4 && _checkMove4.player === player) {
+          xInRow += 1;
+        } else {
+          break;
+        }
+      }
+
+      for (var _row3 = y - 1, _column3 = x - 1; _row3 >= 0 && _column3 >= 0; _row3--, _column3--) {
+        var _checkMove5 = this.getMoves(_column3, _row3);
+
+        if (_checkMove5 && _checkMove5.player === player) {
+          xInRow += 1;
+        } else {
+          break;
+        }
+      }
+
+      if (xInRow === 4) {
+        this.setState({
+          winner: player
+        });
+        alert("Player: " + player + " wins the game!");
+      }
+
+      xInRow = 1;
+
+      for (var _row4 = y + 1, _column4 = x - 1; _row4 < 6 && _column4 >= 0; _row4++, _column4--) {
+        var _checkMove6 = this.getMoves(_column4, _row4);
+
+        if (_checkMove6 && _checkMove6.player === player) {
+          xInRow += 1;
+        } else {
+          break;
+        }
+      }
+
+      for (var _row5 = y - 1, _column5 = x + 1; _row5 >= 0 && _column5 < 7; _row5--, _column5++) {
+        var _checkMove7 = this.getMoves(_column5, _row5);
+
+        if (_checkMove7 && _checkMove7.player === player) {
+          xInRow += 1;
+        } else {
+          break;
+        }
+      }
+
+      if (xInRow === 4) {
+        this.setState({
+          winner: player
+        });
+        alert("Player: " + player + " wins the game!");
+      }
+
+      if (this.state.moves.length === 42) {
+        this.setState({
+          winner: 'tie'
+        });
+        alert("This is a tie!");
+      }
+    }
+  }, {
     key: "renderBoard",
     value: function renderBoard() {
+      var _this2 = this;
+
       var _this$state = this.state,
           rows = _this$state.rows,
           cols = _this$state.cols;
       var rowViews = [];
 
-      for (var row = 0; row < this.state.rows; row++) {
+      var _loop = function _loop(row) {
         var colViews = [];
 
-        for (var col = 0; col < this.state.cols; col++) {
+        var _loop2 = function _loop2(col) {
+          var move = _this2.getMoves(col, row);
+
           colViews.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
+            onClick: function onClick() {
+              _this2.addMove(col, row);
+            },
             style: {
               width: 50,
               height: 50,
@@ -166,7 +339,17 @@ var App = /*#__PURE__*/function (_React$Component) {
               flex: 1,
               display: "flex"
             }
-          })));
+          }, move ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
+            style: {
+              backgroundColor: move.player,
+              flex: 1,
+              borderRadius: "50%"
+            }
+          }) : undefined)));
+        };
+
+        for (var col = 0; col < _this2.state.cols; col++) {
+          _loop2(col);
         }
 
         rowViews.push( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
@@ -175,6 +358,10 @@ var App = /*#__PURE__*/function (_React$Component) {
             flexDirection: "row"
           }
         }, colViews));
+      };
+
+      for (var row = 0; row < this.state.rows; row++) {
+        _loop(row);
       }
 
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", null, rowViews);
@@ -182,13 +369,31 @@ var App = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("h2", null, " Connect Four"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", null, this.renderBoard()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("button", null, "Reset"));
+      var _this3 = this;
+
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
+        style: {
+          margin: "auto",
+          width: "25%",
+          padding: "20px"
+        }
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("h2", null, " Connect Four"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("div", {
+        style: {
+          padding: 5,
+          display: "flex"
+        }
+      }, this.renderBoard()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement("button", {
+        onClick: function onClick() {
+          _this3.resetBoard();
+        }
+      }, "Reset"));
     }
   }]);
 
   return App;
 }(react__WEBPACK_IMPORTED_MODULE_5___default.a.Component);
 react_dom__WEBPACK_IMPORTED_MODULE_6___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_5___default.a.createElement(App, null), document.getElementById('app'));
+/* harmony default export */ __webpack_exports__["default"] = (App);
 
 /***/ }),
 

@@ -26,11 +26,14 @@ export class App extends React.Component {
     return list[0];
   }
 
-   addMove(x, y) {
+  addMove(x, y) {
     const { turn } = this.state;
-    const nextTurn = turn === 'red' ? "yellow": "red";
-    this.setState({ moves: this.state.moves.concat({ x, y, player: turn }), turn: nextTurn}
-    , this.checkWhoWins(x, y, turn));
+    const nextTurn = turn === 'red' ? "yellow" : "red";
+    this.setState({ moves: this.state.moves.concat({ x, y, player: turn }), turn: nextTurn }, function () {
+      const message = this.checkWhoWins(x, y, turn);
+      alert(message);
+    }.bind(this))
+
   }
 
 
@@ -55,7 +58,7 @@ export class App extends React.Component {
 
     if(xInRow === 4){
       this.setState({winner: player})
-      alert("Player: " + player + " wins the game!");
+      return "Player: " + player + " wins the game!";
     }
 
     xInRow = 1;
@@ -78,7 +81,7 @@ export class App extends React.Component {
 
     if(xInRow === 4){
       this.setState({winner: player})
-      alert("Player: " + player + " wins the game!");
+      return "Player: " + player + " wins the game!";
     }
 
     xInRow = 1;
@@ -106,7 +109,7 @@ export class App extends React.Component {
     }
     if(xInRow === 4){
       this.setState({winner: player})
-      alert("Player: " + player + " wins the game!");
+      return "Player: " + player + " wins the game!";
     }
 
     xInRow = 1;
@@ -130,9 +133,16 @@ export class App extends React.Component {
 
     if(xInRow === 4){
       this.setState({winner: player})
-      alert("Player: " + player + " wins the game!");
+      return "Player: " + player + " wins the game!";
     }
+
+    if(this.state.moves.length === 42){
+      this.setState({winner: 'tie'});
+      return "This is a tie!";
+    }
+
   }
+
   renderBoard() {
     const { rows, cols } = this.state;
     const rowViews = [];
@@ -174,4 +184,5 @@ export class App extends React.Component {
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
+export default App;
 
